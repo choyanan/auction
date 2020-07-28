@@ -21,8 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # - run: npm ci
-      - name: test
-        id: set-test
+      - id: set-test
+        name: test
         run: npm run test
       # Runs a single command using the runners shell
       - name: Notify slack
