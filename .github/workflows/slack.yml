@@ -27,6 +27,6 @@ jobs:
         SLACK_COLOR: '#3278BD'
         SLACK_ICON: https://github.com/rtCamp.png?size=48
         SLACK_MESSAGE: 'Post Content :rocket:'
-        SLACK_TITLE: Post Title
-        SLACK_USERNAME: rtCamp
+        SLACK_TITLE: Message
+        SLACK_USERNAME: choyanan
         SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
