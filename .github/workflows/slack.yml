@@ -20,7 +20,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
-      - run: npm ci
+      # - run: npm ci
       - name: test
         run: npm run test
       # Runs a single command using the runners shell
@@ -31,7 +31,7 @@ jobs:
           SLACK_CHANNEL: general
           SLACK_COLOR: "#FF0000"
           SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: "fail"
+          SLACK_MESSAGE: "test fail  {{ github.event.push.comments_url}}"
           SLACK_TITLE: Message
           SLACK_USERNAME: choyanan
           SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -43,7 +43,7 @@ jobs:
           SLACK_CHANNEL: general
           SLACK_COLOR: "#00FF00"
           SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: "success"
+          SLACK_MESSAGE: "test success"
           SLACK_TITLE: Message
           SLACK_USERNAME: choyanan
           SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
