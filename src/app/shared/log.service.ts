@@ -32,7 +32,7 @@ export class LogService {
   }
 
   log(msg: string, ...optionalParams: any[]) {
-    //this.writeToLog(msg, LogLevel.All, optionalParams);
+    this.writeToLog(msg, LogLevel.All, optionalParams);
   }
 
   private writeToLog(msg: string, level: LogLevel, params: any[]) {
