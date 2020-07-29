@@ -65,5 +65,7 @@ jobs:
               }]
             }
         env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
         if: always()
