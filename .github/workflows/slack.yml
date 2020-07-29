@@ -56,7 +56,7 @@ jobs:
           fields: workflow,job,commit,repo,ref,author,took
           custom_payload: |
             {
-              text: "Custom Field Check"
+              text: "Custom Field Check",
               username: 'action-slack',
               icon_emoji: ':octocat:',
               attachments: [{
