@@ -50,7 +50,7 @@ jobs:
       #     SLACK_USERNAME: choyanan
       #     SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: Notify slack
-      - uses: 8398a7/action-slack@v3
+        uses: 8398a7/action-slack@v3
         with:
           status: good
           fields: workflow,job,commit,repo,ref,author,took
