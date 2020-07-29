@@ -23,8 +23,8 @@ jobs:
       # - run: npm ci
       - name: step 1
         run: npm run test
-      - name: step 2
-        run: scripts/deploy.sh
+      # - name: step 2
+      #   run: scripts/deploy.sh
       # # Runs a single command using the runners shell
       # - name: Notify slack
       #   if: failure()
