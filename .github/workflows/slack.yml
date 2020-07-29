@@ -23,8 +23,8 @@ jobs:
       # - run: npm ci
       - name: step 1
         run: npm run test
-      # - name: step 2
-      #   run: scripts/deploy.sh
+      - name: step 2
+        run: scripts/deploy.sh
       # # Runs a single command using the runners shell
       # - name: Notify slack
       #   if: failure()
@@ -52,15 +52,16 @@ jobs:
       - name: Notify slack
         uses: 8398a7/action-slack@v3
         with:
-          status: good
+          status: custom
           fields: workflow,job,commit,repo,ref,author,took
           custom_payload: |
             {
+              text: "Custom Field Check"
               username: 'action-slack',
               icon_emoji: ':octocat:',
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: 'test fail',
+                text: 'Succeeded',
               }]
             }
         env:
