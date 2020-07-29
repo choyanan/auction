@@ -49,24 +49,25 @@ jobs:
       #     SLACK_TITLE: Message
       #     SLACK_USERNAME: choyanan
       #     SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
-      - name: Notify slack
+      - name: Notify slack success
+        if: success()
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
           fields: workflow,job,commit,repo,ref,author,took
-          text: '${{ job.status }}' === 'success' ? 'Success test' : '${{ job.status }}' === 'failure' ? 'Failure Test' : ''
-          # custom_payload: |
-          #   {
-          #     text: "Custom Field Check",
-          #     username: 'action-slack',
-          #     icon_emoji: ':octocat:',
-          #     attachments: [{
-          #       color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-          #       text: 'Succeeded',
-          #     }]
-          #   }
+          text: "Success test"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
           MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
-        if: always()
+      - name: Notify slack fail
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: workflow,job,commit,repo,ref,author,took
+          text: "Failure test"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
