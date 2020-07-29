@@ -21,30 +21,47 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # - run: npm ci
-      - id: set-test
-        name: test
+      - name: step 1
         run: npm run test
+      - name: step 2
+        run: scripts/deploy.sh
       # Runs a single command using the runners shell
-      - name: Notify slack
-        if: failure()
-        uses: rtCamp/action-slack-notify@master
+      # - name: Notify slack
+      #   if: failure()
+      #   uses: rtCamp/action-slack-notify@master
+      #   env:
+      #     SLACK_CHANNEL: general
+      #     SLACK_COLOR: "#FF0000"
+      #     SLACK_ICON: https://github.com/rtCamp.png?size=48
+      #     SLACK_MESSAGE: "test fail"
+      #     SLACK_TITLE: Message
+      #     SLACK_USERNAME: choyanan
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+      # # Runs a single command using the runners shell
+      # - name: Notify slack
+      #   if: success()
+      #   uses: rtCamp/action-slack-notify@master
+      #   env:
+      #     SLACK_CHANNEL: general
+      #     SLACK_COLOR: "#00FF00"
+      #     SLACK_ICON: https://github.com/rtCamp.png?size=48
+      #     SLACK_MESSAGE: "test success"
+      #     SLACK_TITLE: Message
+      #     SLACK_USERNAME: choyanan
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: good
+          fields: workflow,job,commit,repo,ref,author,took
+          custom_payload: |
+            {
+              username: 'action-slack',
+              icon_emoji: ':octocat:',
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@master by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
+              }]
+            }
         env:
-          SLACK_CHANNEL: general
-          SLACK_COLOR: "#FF0000"
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: "test fail  ${{ steps.set-test.outputs }}"
-          SLACK_TITLE: Message
-          SLACK_USERNAME: choyanan
-          SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
-      # Runs a single command using the runners shell
-      - name: Notify slack
-        if: success()
-        uses: rtCamp/action-slack-notify@master
-        env:
-          SLACK_CHANNEL: general
-          SLACK_COLOR: "#00FF00"
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: "test success"
-          SLACK_TITLE: Message
-          SLACK_USERNAME: choyanan
-          SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
