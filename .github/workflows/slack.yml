@@ -60,7 +60,7 @@ jobs:
               icon_emoji: ':octocat:',
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: test fail,
+                text: 'test fail',
               }]
             }
         env:
