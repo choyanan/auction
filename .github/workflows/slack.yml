@@ -53,7 +53,7 @@ jobs:
         if: success()
         uses: 8398a7/action-slack@v3
         with:
-          author_name: "choyanan"
+          author_name: ""
           status: ${{ job.status }}
           fields: job,repo,author,took,workflow
           text: "Success test"
@@ -65,7 +65,7 @@ jobs:
         if: failure()
         uses: 8398a7/action-slack@v3
         with:
-          author_name: "choyanan"
+          author_name: ""
           status: ${{ job.status }}
           fields: workflow,job,repo,author,took
           text: "Failure test"
