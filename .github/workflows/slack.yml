@@ -54,7 +54,7 @@ jobs:
         with:
           status: ${{ job.status }}
           fields: workflow,job,commit,repo,ref,author,took
-          text: Success
+          text: '${{ job.status }}' === 'success' ? 'Success test' : '${{ job.status }}' === 'failure' ? 'Failure Test' : ''
           # custom_payload: |
           #   {
           #     text: "Custom Field Check",
