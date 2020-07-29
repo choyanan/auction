@@ -55,7 +55,7 @@ jobs:
         with:
           author_name: ""
           status: ${{ job.status }}
-          fields: job,repo,author,took,workflow
+          fields: job,repo,author,took
           text: "Success test"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
@@ -67,7 +67,7 @@ jobs:
         with:
           author_name: ""
           status: ${{ job.status }}
-          fields: workflow,job,repo,author,took
+          fields: job,repo,author,took
           text: "Failure test"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
