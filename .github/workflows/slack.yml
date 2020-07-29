@@ -52,18 +52,19 @@ jobs:
       - name: Notify slack
         uses: 8398a7/action-slack@v3
         with:
-          status: custom
+          status: success
           fields: workflow,job,commit,repo,ref,author,took
-          custom_payload: |
-            {
-              text: "Custom Field Check",
-              username: 'action-slack',
-              icon_emoji: ':octocat:',
-              attachments: [{
-                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: 'Succeeded',
-              }]
-            }
+
+          # custom_payload: |
+          #   {
+          #     text: "Custom Field Check",
+          #     username: 'action-slack',
+          #     icon_emoji: ':octocat:',
+          #     attachments: [{
+          #       color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+          #       text: 'Succeeded',
+          #     }]
+          #   }
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
