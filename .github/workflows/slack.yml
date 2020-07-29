@@ -23,9 +23,9 @@ jobs:
       # - run: npm ci
       - name: step 1
         run: npm run test
-      # - name: step 2
-      #   run: scripts/deploy.sh
-      # Runs a single command using the runners shell
+      - name: step 2
+        run: scripts/deploy.sh
+      # # Runs a single command using the runners shell
       # - name: Notify slack
       #   if: failure()
       #   uses: rtCamp/action-slack-notify@master
@@ -60,7 +60,7 @@ jobs:
               icon_emoji: ':octocat:',
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@master by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
+                text: test fail,
               }]
             }
         env:
