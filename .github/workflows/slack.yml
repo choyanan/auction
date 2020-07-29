@@ -56,3 +56,4 @@ jobs:
           fields: workflow,job,commit,repo,ref,author,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
+        if: always()
