@@ -54,7 +54,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          fields: workflow,job,commit,repo,ref,author,took
+          fields: workflow,job,repo,author,took
           text: "Success test"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
@@ -65,7 +65,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          fields: workflow,job,commit,repo,ref,author,took
+          fields: workflow,job,repo,author,took
           text: "Failure test"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
