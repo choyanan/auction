@@ -13,42 +13,34 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      # - run: npm ci
-      - name: step 1
-        run: npm run test
-      - name: step 2
-        run: scripts/deploy.sh
-      # # Runs a single command using the runners shell
-      # - name: Notify slack
-      #   if: failure()
-      #   uses: rtCamp/action-slack-notify@master
-      #   env:
-      #     SLACK_CHANNEL: general
-      #     SLACK_COLOR: "#FF0000"
-      #     SLACK_ICON: https://github.com/rtCamp.png?size=48
-      #     SLACK_MESSAGE: "test fail"
-      #     SLACK_TITLE: Message
-      #     SLACK_USERNAME: choyanan
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
-      # Runs a single command using the runners shell
-      # - name: Notify slack
-      #   if: success()
-      #   uses: rtCamp/action-slack-notify@master
-      #   env:
-      #     SLACK_CHANNEL: general
-      #     SLACK_COLOR: "#00FF00"
-      #     SLACK_ICON: https://github.com/rtCamp.png?size=48
-      #     SLACK_MESSAGE: "test success"
-      #     SLACK_TITLE: Message
-      #     SLACK_USERNAME: choyanan
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v2.3.0
+        with:
+          submodules: recursive
+          token: ${{ secrets.TOKEN }}
+
+      - name: Install IBM Cloud CLI
+        run: |
+          curl -sL https://ibm.biz/idt-installer | bash
+
+      - name: Log in to IBM Cloud
+        run: |
+          ibmcloud login -r jp-tok -g g-enterprise --apikey ${{secrets.IBMCLOUD_API_KEY}}
+
+      - name: Select k8s cluster
+        run: |
+          ibmcloud ks cluster config --cluster $CLUSTER_NAME
+
+      - name: Deploy microservices to cluster
+        run: |
+          source scripts/deploy.sh
+
       - name: Notify slack success
         if: success()
         uses: 8398a7/action-slack@v3
@@ -56,11 +48,12 @@ jobs:
           author_name: ""
           status: ${{ job.status }}
           fields: job,repo,author,took
-          text: "test: success :"
+          text: "deploy: success"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
           MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
+
       - name: Notify slack fail
         if: failure()
         uses: 8398a7/action-slack@v3
@@ -68,7 +61,7 @@ jobs:
           author_name: ""
           status: ${{ job.status }}
           fields: job,repo,author,took
-          text: "build: failure"
+          text: "deploy: failure"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
