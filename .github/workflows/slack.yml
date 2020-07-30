@@ -51,7 +51,7 @@ jobs:
           text: "deploy: success"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
 
       - name: Notify slack fail
@@ -64,5 +64,5 @@ jobs:
           text: "deploy: failure"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
