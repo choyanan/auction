@@ -27,9 +27,9 @@ jobs:
       # - name: install CI
       #   run: npm ci
 
-      - name: Install IBM Cloud CLI
-        run: |
-          curl -sL https://ibm.biz/idt-installer | bash
+      # - name: Install IBM Cloud CLI
+      #   run: |
+      #     curl -sL https://ibm.biz/idt-installer | bash
 
       - name: Log in to IBM Cloud
         run: |
