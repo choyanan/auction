@@ -37,7 +37,7 @@ jobs:
       #     SLACK_TITLE: Message
       #     SLACK_USERNAME: choyanan
       #     SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
-      ## Runs a single command using the runners shell
+      # Runs a single command using the runners shell
       # - name: Notify slack
       #   if: success()
       #   uses: rtCamp/action-slack-notify@master
