@@ -41,28 +41,15 @@ jobs:
         run: |
           source scripts/deploy.sh
 
-      - name: Notify slack success
-        if: success()
+      - name: Notify slack
+        if: always()
         uses: 8398a7/action-slack@v3
         with:
           author_name: ""
           status: ${{ job.status }}
           fields: job,repo,author,took
-          text: "deploy: success"
+          text: "deploy ${{ job.status }}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
-
-      - name: Notify slack fail
-        if: failure()
-        uses: 8398a7/action-slack@v3
-        with:
-          author_name: ""
-          status: ${{ job.status }}
-          fields: job,repo,author,took
-          text: "deploy: failure"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
+          GITHUB_TOKEN: ${{ secrets.TOKEN }} # required
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
