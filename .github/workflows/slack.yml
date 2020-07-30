@@ -41,7 +41,7 @@ jobs:
 
       # - name: Deploy microservices to cluster
       #   run: |
-      ##     source scripts/deploy.sh
+      #     source scripts/deploy.sh
 
       - name: Notify slack
         uses: 8398a7/action-slack@v3
