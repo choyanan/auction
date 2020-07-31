@@ -51,7 +51,6 @@ jobs:
           fields: job,repo,author,took
           text: "deploy ${{ job.status }}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # required
+          GITHUB_TOKEN: ${{ secrets.NOTIFICATION_TOKEN }} # required
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
         if: always()
